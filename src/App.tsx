@@ -1,5 +1,26 @@
 import React, { useState, useEffect } from 'react';
-import { Check, X, Clock, ChevronDown, Zap, Award, Rocket, Sparkles, Calculator, ArrowRight, Percent, Star, Crown, Target, Search, Globe, Lightbulb, Trophy } from 'lucide-react';
+import {
+  Check,
+  X,
+  Clock,
+  ChevronDown,
+  Zap,
+  Award,
+  Rocket,
+  Sparkles,
+  Calculator,
+  ArrowRight,
+  Percent,
+  Star,
+  Crown,
+  Target,
+  Search,
+  Monitor,
+  Globe,
+  Lightbulb,
+  Trophy,
+  Info
+} from 'lucide-react';
 import { motion } from 'framer-motion';
 
 function App() {
@@ -20,22 +41,126 @@ function App() {
   const [selectedSeoPackage, setSelectedSeoPackage] = useState<any>(null);
   const [showBusinessFriendly, setShowBusinessFriendly] = useState(true);
 
+  // Mapping for example website links for Web design packages
+  const webDesignExampleLinks: Record<string, string> = {
+    'Premium Business Kick-Off': 'https://example.com/premium-business-kickoff',
+    'Business Elite': 'https://example.com/business-elite',
+    'Premier Luxe': 'https://example.com/premier-luxe'
+  };
+
   // Track mouse position for tooltip
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
       setMousePosition({ x: e.clientX, y: e.clientY });
     };
-
     window.addEventListener('mousemove', handleMouseMove);
     return () => {
       window.removeEventListener('mousemove', handleMouseMove);
     };
   }, []);
 
-  const getFeatureList = () => {
-    return showBusinessFriendly ? businessFriendlyFeatures[selectedSeoPackage.name] : selectedSeoPackage.features;
-  };
+  // Personalized Combo Descriptions
+  function getComboBenefitsDescription(webName: string, seoName: string) {
+    const webDesignHighlights: Record<string, string> = {
+      'Premium Business Kick-Off': 'a strong foundation design for new or smaller businesses',
+      'Business Elite': 'an advanced professional design for growing brands',
+      'Premier Luxe': 'a top-tier design with powerful e-commerce capabilities'
+    };
 
+    const seoHighlights: Record<string, string> = {
+      'City Start': 'local SEO to boost visibility in your city',
+      'State Leader': 'statewide SEO to reach customers across your region',
+      'National Empire': 'a national-level SEO strategy to dominate the market',
+      'Elite Global': 'global SEO to expand your reach worldwide'
+    };
+
+    const designPart = webDesignHighlights[webName] || 'a tailored web design';
+    const seoPart = seoHighlights[seoName] || 'an effective SEO approach';
+
+    return `When you sign up for our combo, you receive a 15% discount on the website design price. This means you get a professionally designed website paired with comprehensive SEO services at an unbeatable value.`;
+  }
+
+  // Business-friendly tooltips for both Web Design and SEO features
+  //const businessFriendlyFeatures: Record<string, string> = {
+  //  // WEB DESIGN (for tooltips)
+  //  'Custom/Responsive Web Design: Up to 5 pages':
+  //    'A website that looks great on all devices with up to 5 custom-designed pages.',
+  //  'Custom/Responsive Web Design: Up to 10 pages':
+  //    'A website that looks great on all devices with up to 10 custom-designed pages.',
+  //  'Custom/Responsive Web Design: Up to 15 pages':
+  //    'A website that looks great on all devices with up to 15 custom-designed pages.',
+  //  CMSIntegration: 'An easy-to-use system to update your website content.',
+  //  'Basic SEO': 'Improves your site’s visibility on search engines.',
+  //  'Responsive Design': 'Ensures your site works seamlessly on any device.',
+  //  'Custom Layout Design': 'Unique page designs tailored to your brand.',
+  //  'Logo Design': 'Professional logo creation to boost your brand image.',
+  //  'Content and Copywriting': 'Engaging content crafted for your audience.',
+  //  'Blog Functionality': 'A built-in blog to share news and updates.',
+  //  'Contact Form': 'A simple form for visitors to contact you.',
+  //  'Social Media Integration': 'Connect your site with your social media channels.',
+  //  'Google Maps Integration': 'Embed maps to display your business location.',
+  //  'Domain & Hosting Setup': 'We help set up your domain and hosting services.',
+  //  'SSL Certificate': 'Secures your website and builds trust.',
+  //  'Content Updates': 'Keep your website fresh with regular updates.',
+  //  'Software Updates': 'Ensures your site runs on the latest software.',
+  //  'CMS Training': 'Training to manage your website easily.',
+  //  'On-Going Technical Support': 'Support available whenever you need it.',
+//
+  //  // SEO Features – Business Friendly
+  //  'Full Website Optimization':
+  //    'We optimize your homepage and key pages so your business ranks higher locally.',
+  //  'Google My Business Optimization': 'We enhance your GMB profile to boost local search presence.',
+  //  'Local Keyword Research': 'We research the best local keywords your customers use.',
+  //  'Analytics Setup & Configuration':
+  //    'We configure analytics tools to monitor your site’s performance.',
+  //  'Business Listings (20)':
+  //    'We list your business on 20 quality directories to build credibility.',
+  //  'Local Competitor Analysis':
+  //    'We analyze local competitors to fine-tune your SEO strategy.',
+  //  'Blog Posts (1)':
+  //    'One blog post per month to keep your content fresh and improve SEO.',
+  //  'Schema Markup Implementation':
+  //    'We add structured data so search engines better understand your site.',
+  //  'Support 24/7': 'Round-the-clock support to resolve any issues quickly.',
+  //  'Comprehensive Keyword Research':
+  //    'In-depth research to pinpoint the best keywords for your business.',
+  //  'SEO Dedicated Page Creation Per City': 'We create optimized pages for each city you serve.',
+  //  'Blog Posts (2)':
+  //    'Two blog posts per month to further engage your audience and boost rankings.',
+  //  'Business Listings (40)':
+  //    'We list your business on 40 directories to enhance your online presence.',
+  //  'Backlink Implementation': 'We build quality backlinks to strengthen your site’s authority.',
+  //  '301 Redirect Management': 'We manage redirects to preserve your site’s SEO value.',
+  //  'Monthly Performance Reporting': 'Detailed monthly reports to track your SEO progress.',
+//
+  //  'Deep Competitor Analyses':
+  //    'We perform detailed analyses of your competitors to keep you ahead.',
+  //  'Content Strategy Development':
+  //    'We craft a tailored content plan to support your SEO efforts.',
+  //  'Blog Posts (4)':
+  //    'Four blog posts per month to consistently drive traffic.',
+  //  'SEO Dedicated Page Creation Per State and City':
+  //    'Optimized pages for each key location your business targets.',
+  //  'High Quality Link Building Management':
+  //    'We focus on high-quality links to improve your site’s authority.',
+  //  'Business Listings (80)':
+  //    'Your business is listed on 80 top directories for maximum exposure.',
+  //  'Press Release (250+ Live Placements)':
+  //    'We distribute press releases to secure major media coverage.',
+  //  'Multilingual Website Implementation':
+  //    'We implement multilingual support to reach a global audience.',
+  //  '250 Business Listings': 'We ensure your business appears in 250 key directories.',
+  //  'Press Release (300+ Live Placements)':
+  //    'An extensive press release campaign for maximum exposure.',
+  //  'Ultra High Quality Link Building Management':
+  //    'Our advanced link building strategy focuses on acquiring quality links.',
+  //  'Advanced Schema Markup Implementation':
+  //    'We use advanced schema markup for superior search engine recognition.',
+  //  'SEO Dedicated Page Creation Per Target Countries, States, and Cities':
+  //    'Optimized pages for every target location around the world.',
+  //  'International Competitor Analysis (1)':
+  //    'We analyze global competitors to give you a competitive edge.'
+  //};
 
   const businessFriendlyFeatures: Record<string, string[]> = {
     "City Start": [
@@ -93,63 +218,93 @@ function App() {
     ]
   };
 
-  // Feature explanations - Technical
   const featureExplanations: Record<string, string> = {
-    // Web Design Features
-    "Custom/Responsive Web Design: Up to 5 pages": "A fully responsive website that looks great on all devices with up to 5 unique page designs.",
-    "Custom/Responsive Web Design: Up to 10 pages": "A fully responsive website that looks great on all devices with up to 10 unique page designs.",
-    "Custom/Responsive Web Design: Up to 15 pages": "A fully responsive website that looks great on all devices with up to 15 unique page designs.",
-    "Basic On-page SEO": "Essential search engine optimization for your website's content and structure to improve visibility.",
-    "Content Management System (CMS)": "A user-friendly system that allows you to update your website content without technical knowledge.",
-    "Live Chat Integration": "Real-time chat functionality to engage with visitors directly on your website.",
-    "Social Media/Email Integration": "Connect your website with your social media profiles and email marketing tools.",
-    "Custom Forms": "Tailored forms for contact, subscriptions, or other data collection needs.",
-    "Content Writing": "Professional copywriting for your website pages to engage visitors effectively.",
-    "Google Analytics": "Integration of analytics to track visitor behavior and website performance.",
-    "Domain and Hosting Subscriptions Support": "Assistance with setting up and managing your website's domain and hosting services.",
-    "E-Commerce Integration": "Full online store functionality with product listings, cart, and checkout process.",
-    "Custom Interactions and Animations": "Engaging visual effects and interactive elements to enhance user experience.",
-    "Advanced Wix System and On-page SEO": "Comprehensive SEO setup using Wix's advanced tools for better search rankings.",
-    "Native Appointment Tool": "Built-in scheduling system for clients to book appointments directly through your website.",
-    "Online Payment Integration": "Secure payment processing capabilities for services or products.",
-    "Professional Email Creation": "Setup of branded email addresses matching your domain name.",
-    "Professional Terms of Services and Privacy Policy Page": "Legally compliant pages covering website usage terms and privacy practices.",
-    "On-going Support Until the Final Payment": "Continuous technical assistance and updates until your payment plan is completed.",
+    // Web Design
+    'Custom/Responsive Web Design: Up to 5 pages':
+      'A fully responsive website that looks great on all devices with up to 5 unique page designs.',
+    'Custom/Responsive Web Design: Up to 10 pages':
+      'A fully responsive website that looks great on all devices with up to 10 unique page designs.',
+    'Custom/Responsive Web Design: Up to 15 pages':
+      'A fully responsive website that looks great on all devices with up to 15 unique page designs.',
+    'CMS Integration':
+      'Integration of a Content Management System to easily update your website.',
+    'Basic SEO': "Essential SEO setup to improve your website's search engine visibility.",
+    'Responsive Design':
+      'Ensures your website works flawlessly on desktops, tablets, and mobiles.',
+    'Custom Layout Design':
+      'Tailored page layouts that reflect your brand identity.',
+    'Logo Design': 'Professional logo creation that represents your brand.',
+    'Content and Copywriting': 'Expertly written content to engage your visitors.',
+    'Blog Functionality': 'Built-in blog feature to share updates and news.',
+    'Contact Form': 'Custom form for customers to get in touch with you.',
+    'Social Media Integration': 'Connect your website with your social profiles.',
+    'Google Maps Integration': 'Embedding of maps to display your business location.',
+    'Domain & Hosting Setup': 'Assistance with setting up your domain and hosting.',
+    'SSL Certificate': 'Secure your website with an SSL certificate.',
+    'Content Updates': 'Regular updates to keep your website current.',
+    'Software Updates': 'Ongoing updates for website software and plugins.',
+    'CMS Training': 'Training to manage your website content efficiently.',
+    'On-Going Technical Support': 'Continuous support for any technical issues.',
 
-    // SEO Features - Technical
-    "Full Website Optimization": "Optimization of your homepage to rank higher in search results for relevant keywords.",
-    "Google My Business Optimization": "Comprehensive search engine optimization for up to 5 pages of your website.",
-    "Local Keyword Research": "Comprehensive search engine optimization for up to 10 pages of your website.",
-    "Analytics Setup & Configuration": "Comprehensive search engine optimization for up to 20 pages of your website.",
-    "Business Listings (20)": "Comprehensive search engine optimization for up to 30 pages of your website.",
-    "Local Competitor Analysis": "In-depth analysis to identify the most valuable search terms for your business.",
-    "Blog Posts (1)": "Refinement of page elements like titles, meta descriptions, and content for better rankings.",
-    "Schema Markup Implementation": "One professionally written, SEO-optimized blog article each month.",
-    "Support 24/7": "Two professionally written, SEO-optimized blog articles each month.",
-    "Comprehensive Keyword Research": "Four professionally written, SEO-optimized blog articles each month.",
-    "SEO Dedicated Page Creation Per City": "Eight professionally written, SEO-optimized blog articles each month.",
-    "Blog Posts (2)": "Twelve professionally written, SEO-optimized blog articles each month.",
-    "Business Listings (40)": "Refinement of your website text to improve both user engagement and search rankings.",
-    "Backlink Implementation": "Your business information added to 60 local directories to improve local visibility.",
-    "301 Redirect Management": "Your business information added to 200 local directories for extensive local visibility.",
-    "Monthly Performance Reporting": "Your business information added to 350 local directories for maximum local visibility.",
-    "Deep Competitor Analyses": "Your business information added to over 500 local directories for comprehensive local visibility.",
-    "Content Strategy Development": "Creation of quality backlinks from other websites to improve your site's authority.",
-    "Blog Posts (4)": "Strategic acquisition of high-authority backlinks from relevant industry websites.",
-    "SEO Dedicated Page Creation Per State and City": "Round-the-clock assistance available via chat and phone whenever you need help.",
-    "High Quality Link Building Management": "Enhancement of your Google Business Profile to improve local search visibility.",
-    "Business Listings (80)": "A personal SEO expert assigned to your account who understands your business goals.",
-    "Press Release (250+ Live Placements)": "Detailed monthly analytics showing your SEO progress and ROI.",
-    "Multilingual Website Implementation": "In-depth research on your top competitors' SEO strategies to help you outrank them.",
-    "250 Business Listings": "Regular updates on your SEO performance metrics to track progress.",
-    "Press Release (300+ Live Placements)": "Tailored SEO plan designed specifically for your business goals and industry.",
-    "Ultra High Quality Link Building Management": "Enhancement of your social profiles to improve search visibility and brand presence.",
-    "Advanced Schema Markup Implementation": "Enhancement of your social profiles to improve search visibility and brand presence.",
-    "SEO Dedicated Page Per Target Countries, States, and Cities": "Enhancement of your social profiles to improve search visibility and brand presence.",
-    "International Competitor Analysis (1)": "testestes"
+    // SEO
+    'Full Website Optimization':
+      'Optimization of your homepage and key pages to rank higher in search results.',
+    'Google My Business Optimization':
+      'Optimizing your Google Business Profile to enhance local visibility.',
+    'Local Keyword Research': 'Researching keywords that drive local traffic to your website.',
+    'Analytics Setup & Configuration':
+      'Configuring analytics to monitor and improve site performance.',
+    'Business Listings (20)':
+      'Listing your business in 20 reputable directories to boost credibility.',
+    'Local Competitor Analysis':
+      'Analyzing local competitors to refine your SEO strategy.',
+    'Blog Posts (1)': 'Publishing one blog post per month to keep content fresh.',
+    'Schema Markup Implementation':
+      'Implementing structured data for better search engine understanding.',
+    'Support 24/7':
+      'Providing around-the-clock support to keep your website running smoothly.',
+
+    'Comprehensive Keyword Research':
+      'In-depth analysis to identify the most effective keywords for your business.',
+    'SEO Dedicated Page Creation Per City':
+      'Creating optimized pages for each city to boost local SEO.',
+    'Blog Posts (2)': 'Publishing two blog posts per month to improve engagement and SEO.',
+    'Business Listings (40)':
+      'Listing your business in 40 quality directories for broader exposure.',
+    'Backlink Implementation': 'Acquiring quality backlinks to enhance domain authority.',
+    '301 Redirect Management': 'Managing URL redirects to preserve SEO equity.',
+    'Monthly Performance Reporting':
+      'Providing detailed reports on your SEO progress every month.',
+
+    'Deep Competitor Analyses':
+      'Conducting thorough analyses of competitors to inform your SEO strategy.',
+    'Content Strategy Development':
+      'Developing a tailored content plan that supports your SEO goals.',
+    'Blog Posts (4)': 'Publishing four blog posts per month to drive consistent traffic.',
+    'SEO Dedicated Page Creation Per State and City':
+      'Building optimized pages for each target location.',
+    'High Quality Link Building Management':
+      'Focusing on acquiring high-quality backlinks for improved SEO.',
+    'Business Listings (80)':
+      'Listing your business on 80 top directories to maximize online presence.',
+    'Press Release (250+ Live Placements)':
+      'Distributing press releases to secure extensive media coverage.',
+
+    'Multilingual Website Implementation':
+      'Setting up your website in multiple languages to reach international markets.',
+    '250 Business Listings': 'Ensuring your business is featured in 250 key directories.',
+    'Press Release (300+ Live Placements)':
+      'Executing an extensive press release campaign for maximum visibility.',
+    'Ultra High Quality Link Building Management':
+      'Implementing an advanced strategy to secure top-tier backlinks.',
+    'Advanced Schema Markup Implementation':
+      'Using advanced structured data techniques for better SEO performance.',
+    'SEO Dedicated Page Creation Per Target Countries, States, and Cities':
+      'Creating tailored, optimized pages for each global target area.',
+    'International Competitor Analysis (1)':
+      'Analyzing international competitors to help you gain a global edge.'
   };
 
-  // Business-friendly explanations
   const businessFriendlyExplanations: Record<string, string> = {
     // Web Design Features - Business Friendly
     "Custom/Responsive Web Design: Up to 5 pages": "A website that looks great on phones, tablets, and computers with up to 5 pages designed just for your business.",
@@ -213,217 +368,225 @@ function App() {
     "Creates SEO-focused pages for every country, state, and city you target": "Each month, we show you exactly how our work is increasing your website visitors and leads.",
     "Analyzes international competitors to help you stay ahead": "We study what your competitors are doing online and develop strategies to help you outperform them.",
   };
-
+  // Web Design Packages
   const webDesignPackages = [
     {
-      name: "First Impressions Package",
+      name: 'Premium Business Kick-Off',
       price: 250,
-      period: "10x",
-      description: "Great web package for new and small businesses aiming for a compelling online debut.",
+      period: 'x12',
+      description:
+        'An affordable package for businesses looking to kick off their online presence with a fully original design and essential functionalities.',
       features: [
-        "Custom/Responsive Web Design: Up to 5 pages",
-        "Basic On-page SEO",
-        "Content Management System (CMS)",
-        "Live Chat Integration",
-        "Social Media/Email Integration",
-        "Custom Forms",
-        "Content Writing",
-        "Google Analytics",
-        "Domain and Hosting Subscriptions Support"
-      ],
-      negativeFeatures: ["E-Commerce Integration"],
-      delivery: "2 Weeks Delivery",
-      icon: <Zap className="h-12 w-12 text-orange-500" />,
-      bgGradient: "from-blue-500/10 to-purple-500/5"
-    },
-    {
-      name: "Business Boost Package",
-      price: 400,
-      period: "10x",
-      description: "For businesses on the rise. A blend of design and strategy to fuel your growth.",
-      features: [
-        "Custom/Responsive Web Design: Up to 10 pages",
-        "Custom Interactions and Animations",
-        "Advanced Wix System and On-page SEO",
-        "Google Analytics",
-        "Content Writing",
-        "Content Management System (CMS)",
-        "Native Appointment Tool",
-        "Custom Forms",
-        "Social Media/Email Integration",
-        "Live Chat Integration",
-        "Online Payment Integration",
-        "Domain and Hosting Subscriptions Support",
-        "On-going Support Until the Final Payment"
-      ],
-      negativeFeatures: ["E-Commerce Integration"],
-      delivery: "2-3 Weeks Delivery",
-      icon: <Award className="h-12 w-12 text-orange-500" />,
-      bgGradient: "from-orange-500/10 to-red-500/5",
-      popular: true
-    },
-    {
-      name: "Legacy Launcher Package",
-      price: 600,
-      period: "10x",
-      description: "The premier package for creating a distinguished and dominant online presence.",
-      features: [
-        "Custom/Responsive Web Design: Up to 15 pages",
-        "Custom Interactions and Animations",
-        "Content Writing",
-        "Advanced Wix System and On-page SEO",
-        "Google Analytics",
-        "Content Management System (CMS)",
-        "Online Payment Integration",
-        "Social Media/Email Integration",
-        "Live Chat Integration",
-        "Custom Forms",
-        "Native Appointment Tool",
-        "Professional Email Creation",
-        "E-Commerce Integration",
-        "Domain and Hosting Subscriptions Support",
-        "Professional Terms of Services and Privacy Policy Page",
-        "On-going Support Until the Final Payment"
+        '100% Original Design',
+        'All Necessary Pages Development',
+        'Responsive Design',
+        'Custom Layout Design',
+        'Logo Design',
+        'Content and Copywriting',
+        'Blog Functionality',
+        'Contact Form',
+        'Social Media Integration',
+        'Google Maps Integration',
+        'Domain & Hosting Setup',
+        'SSL Certificate',
+        'Content Updates',
+        'Software Updates',
+        'CMS Training',
+        'On-Going Technical Support'
       ],
       negativeFeatures: [],
-      delivery: "4-6 Weeks Delivery",
+      delivery: 'Setup in 2 Weeks',
+      icon: <Zap className="h-12 w-12 text-orange-500" />,
+      bgGradient: 'from-blue-500/10 to-purple-500/5'
+    },
+    {
+      name: 'Business Elite',
+      price: 400,
+      period: 'x12',
+      description:
+        'A premium package tailored for growing businesses that require an elite online presence with enhanced design and functionality.',
+      features: [
+        '100% Original Design',
+        'All Necessary Pages Development',
+        'Responsive Design',
+        'Custom Layout Design',
+        'Content and Copywriting',
+        'Custom Typography',
+        'Logo Design If Necessary',
+        'Custom Icon Set',
+        'Custom Illustrations',
+        'UI Animations',
+        'Search Functionality',
+        'Multilingual Support',
+        'Blog Functionality',
+        'Newsletter Signup',
+        'User Accounts/Login',
+        'Payment Gateway Integration',
+        'Contact Forms',
+        'Social Media Integration',
+        'Google Maps Integration',
+        'Domain & Hosting Setup',
+        'SSL Certificate',
+        'CMS Training',
+        'On-Going Technical Support'
+      ],
+      negativeFeatures: [],
+      delivery: 'Setup in 2-3 Weeks',
+      icon: <Award className="h-12 w-12 text-orange-500" />,
+      bgGradient: 'from-orange-500/10 to-red-500/5'
+    },
+    {
+      name: 'Premier Luxe',
+      price: 600,
+      period: 'x12',
+      description:
+        'A comprehensive package designed for enterprises seeking robust web solutions with advanced e-commerce and design functionalities.',
+      features: [
+        '100% Original Design',
+        'All Necessary Pages Development',
+        'Responsive Design',
+        'Custom Layout Design',
+        'Custom Typography',
+        'Content Copywriting',
+        'Logo Design',
+        'Custom Icon Set',
+        'Custom Illustrations',
+        'UI Animations',
+        'Contact Form',
+        'Search Functionality',
+        'Google Maps Integration',
+        'Blog Functionality',
+        'Newsletter Signup',
+        'User Accounts/Login',
+        'Multilingual Support',
+        'Product Catalog Design',
+        'Shopping Cart',
+        'Checkout Process',
+        'Payment Gateway Integration',
+        'Inventory Management',
+        'Wishlist Functionality',
+        'Product Filters/Search',
+        'Product Reviews System',
+        'Domain & Hosting Setup',
+        'SSL Certificate',
+        'Third-Party API Integration',
+        'Software Updates',
+        'On-Going Technical Support'
+      ],
+      negativeFeatures: [],
+      delivery: 'Setup in 3-4 Weeks',
       icon: <Rocket className="h-12 w-12 text-orange-500" />,
-      bgGradient: "from-teal-500/10 to-emerald-500/5"
+      bgGradient: 'from-teal-500/10 to-emerald-500/5'
     }
   ];
 
+  // SEO Packages
   const seoPackages = [
     {
-      name: "City Start",
+      name: 'City Start',
       price: 95,
-      period: "/Mon",
-      description: "Be the talk of the town and stand out in your local market. Perfect for the budget-conscious business ready to dip their toes into the SEO pool.",
+      period: '/Mon',
+      description:
+        'Be the talk of the town and stand out in your local market. Perfect for the budget-conscious business ready to dip their toes into the SEO pool.',
       features: [
-        "Full Website Optimization",
-        "Google My Business Optimization",
-        "Local Keyword Research",
-        "Analytics Setup & Configuration",
-        "Business Listings (20)",
-        "Local Competitor Analysis",
-        "Blog Posts (1)",
-        "Schema Markup Implementation",
-        "Support 24/7"
+        'Full Website Optimization',
+        'Google My Business Optimization',
+        'Local Keyword Research',
+        'Analytics Setup & Configuration',
+        'Business Listings (20)',
+        'Local Competitor Analysis',
+        'Blog Posts (1)',
+        'Schema Markup Implementation',
+        'Support 24/7'
       ],
       icon: <Target className="h-12 w-12 text-orange-500" />,
-      bgGradient: "from-blue-500/10 to-indigo-500/5"
+      bgGradient: 'from-blue-500/10 to-indigo-500/5'
     },
     {
-      name: "State Leader",
+      name: 'State Leader',
       price: 180,
-      period: "/Mon",
-      description: "Ideal for businesses that are ready to break boundaries and attract a larger audience.",
+      period: '/Mon',
+      description:
+        'Ideal for businesses that are ready to break boundaries and attract a larger audience.',
       features: [
-        "Full Website Optimization",
-        "Comprehensive Keyword Research",
-        "SEO Dedicated Page Creation Per City",
-        "Blog Posts (2)",
-        "Business Listings (40)",
-        "Backlink Implementation",
-        "Schema Markup Implementation",
-        "301 Redirect Management",
-        "Monthly Performance Reporting",
-        "Support 24/7"
+        'Full Website Optimization',
+        'Comprehensive Keyword Research',
+        'SEO Dedicated Page Creation Per City',
+        'Blog Posts (2)',
+        'Business Listings (40)',
+        'Backlink Implementation',
+        'Schema Markup Implementation',
+        '301 Redirect Management',
+        'Monthly Performance Reporting',
+        'Support 24/7'
       ],
       icon: <Globe className="h-12 w-12 text-orange-500" />,
-      bgGradient: "from-orange-500/10 to-amber-500/5",
+      bgGradient: 'from-orange-500/10 to-amber-500/5'
+      // Removed popular from State Leader
+    },
+    {
+      name: 'National Empire',
+      price: 499,
+      period: '/Mon',
+      description:
+        'Tailored for businesses that are not just playing the game but are set to redefine it. Go big, go bold, and become the benchmark in your industry.',
+      features: [
+        'Full Website Optimization',
+        'Comprehensive Keyword Research',
+        'Deep Competitor Analyses',
+        'Content Strategy Development',
+        'Blog Posts (4)',
+        'SEO Dedicated Page Creation Per State and City',
+        'High Quality Link Building Management',
+        'Business Listings (80)',
+        'Press Release (250+ Live Placements)',
+        'Schema Markup Implementation',
+        '301 Redirect Management',
+        'Monthly Performance Reporting',
+        'Support 24/7'
+      ],
+      icon: <Crown className="h-12 w-12 text-orange-500" />,
+      bgGradient: 'from-purple-500/10 to-pink-500/5',
       popular: true
     },
     {
-      name: "National Empire",
-      price: 499,
-      period: "/Mon",
-      description: "Tailored for businesses that are not just playing the game but are set to redefine it. Go big, go bold, and become the benchmark in your industry.",
-      features: [
-        "Full Website Optimization",
-        "Comprehensive Keyword Research",
-        "Deep Competitor Analyses",
-        "Content Strategy Development",
-        "Blog Posts (4)",
-        "SEO Dedicated Page Creation Per State and City",
-        "High Quality Link Building Management",
-        "Business Listings (80)",
-        "Press Release (250+ Live Placements)",
-        "Schema Markup Implementation",
-        "301 Redirect Management",
-        "Monthly Performance Reporting",
-        "Support 24/7"
-      ],
-      icon: <Crown className="h-12 w-12 text-orange-500" />,
-      bgGradient: "from-purple-500/10 to-pink-500/5"
-    },
-    {
-      name: "Elite Global",
+      name: 'Elite Global',
       price: 1200,
-      period: "/Mon",
-      description: "The ultimate SEO solution for businesses aiming to dominate their market and crush the competition. Comprehensive coverage for maximum online visibility.",
+      period: '/Mon',
+      description:
+        'The ultimate SEO solution for businesses aiming to dominate their market and crush the competition. Comprehensive coverage for maximum online visibility.',
       features: [
-        "Full Website Optimization",
-        "Comprehensive Keyword Research",
-        "Multilingual Website Implementation ",
-        "Blog Posts (4)",
-        "250 Business Listings",
-        "Press Release (300+ Live Placements)",
-        "Ultra High Quality Link Building Management",
-        "Advanced Schema Markup Implementation",
-        "SEO Dedicated Page Per Target Countries, States, and Cities",
-        "International Competitor Analysis (1)",
-        "301 Redirect Management",
-        "Monthly Performance Reporting",
-        "Support 24/7"
+        'Full Website Optimization',
+        'Comprehensive Keyword Research',
+        'Multilingual Website Implementation',
+        'Blog Posts (4)',
+        '250 Business Listings',
+        'Press Release (300+ Live Placements)',
+        'Ultra High Quality Link Building Management',
+        'Advanced Schema Markup Implementation',
+        'SEO Dedicated Page Creation Per Target Countries, States, and Cities',
+        'International Competitor Analysis (1)',
+        '301 Redirect Management',
+        'Monthly Performance Reporting',
+        'Support 24/7'
       ],
       icon: <Trophy className="h-12 w-12 text-orange-500" />,
-      bgGradient: "from-blue-600/10 to-indigo-600/5"
-    },
-    /*{
-      name: "Global Expansion Package",
-      price: 800,
-      period: "/Mon",
-      description: "For businesses ready to expand beyond borders and establish a commanding international presence. Our most comprehensive SEO solution for global reach.",
-      features: [
-        "SEO up to 30 pages",
-        "Advanced keyword research",
-        "Advanced Wix System and On-page SEO",
-        "12 Blog posts per month + SEO",
-        "Copy and content optimization",
-        "Business Added to 500+ Local Business Listings",
-        "Google My Business optimization",
-        "Premium link building strategy",
-        "Dedicated SEO specialist",
-        "Weekly performance updates",
-        "Monthly performance reports",
-        "Competitor analysis",
-        "Custom SEO strategy",
-        "Social media optimization",
-        "24/7 Chat and Phone Support"
-      ],
-      icon: <Globe className="h-12 w-12 text-orange-500" />,
-      bgGradient: "from-emerald-600/10 to-teal-600/5"
-    }*/
+      bgGradient: 'from-blue-600/10 to-indigo-600/5'
+    }
   ];
 
   const calculateTotal = () => {
-    if (!webDesignPlan || !seoPlan) {
-      return;
-    }
-
+    if (!webDesignPlan || !seoPlan) return;
     const webDesignPackage = webDesignPackages.find(pkg => pkg.name === webDesignPlan);
     const seoPackage = seoPackages.find(pkg => pkg.name === seoPlan);
-
     if (webDesignPackage && seoPackage) {
       const webPrice = webDesignPackage.price;
       const seoPrice = seoPackage.price;
-
       // Apply 15% discount only to web design price
       const discount = webPrice * 0.15;
       const discountedWebPrice = webPrice - discount;
       const total = webPrice + seoPrice;
       const finalTotal = discountedWebPrice + seoPrice;
-
       setWebDesignPrice(webPrice);
       setSeoPrice(seoPrice);
       setDiscountAmount(discount);
@@ -441,8 +604,7 @@ function App() {
   }, [webDesignPlan, seoPlan]);
 
   return (
-    <div className="min-h-screen bg-transparent text-white py-8 md:py-16">
-      {/* Main Content */}
+    <div className="min-h-screen bg-[#111111] text-white py-8 md:py-16">
       <div className="w-full mx-auto px-4 sm:px-6 lg:px-8">
         {/* Tabs */}
         <div className="flex justify-center mb-10 md:mb-20 overflow-x-auto">
@@ -454,7 +616,10 @@ function App() {
                 : 'text-gray-300 hover:text-white hover:bg-gray-800/70'
                 }`}
             >
-              <Search className={`h-3 w-3 sm:h-4 sm:w-4 mr-1 sm:mr-2 ${activeTab === 'seo' ? 'text-white' : 'text-orange-500'}`} />
+              <Search
+                className={`h-3 w-3 sm:h-4 sm:w-4 mr-1 sm:mr-2 ${activeTab === 'seo' ? 'text-white' : 'text-orange-500'
+                  }`}
+              />
               <span className="hidden xs:inline">Wix SEO Packages</span>
             </button>
             <button
@@ -464,17 +629,18 @@ function App() {
                 : 'text-gray-300 hover:text-white hover:bg-gray-800/70'
                 }`}
             >
-              <Lightbulb className={`h-3 w-3 sm:h-4 sm:w-4 mr-1 sm:mr-2 ${activeTab === 'web-design' ? 'text-white' : 'text-orange-500'}`} />
+              <Lightbulb
+                className={`h-3 w-3 sm:h-4 sm:w-4 mr-1 sm:mr-2 ${activeTab === 'web-design' ? 'text-white' : 'text-orange-500'
+                  }`}
+              />
               Web Design Packages
             </button>
             <button
               onClick={() => setShowCalculator(true)}
               className="px-4 md:px-8 py-3 md:py-3.5 rounded-md text-xs sm:text-sm font-medium text-white relative overflow-hidden group border border-orange-500 bg-transparent whitespace-nowrap"
             >
-              {/* Laser border effect */}
               <div className="absolute inset-0 border border-orange-500 rounded-md opacity-50"></div>
               <div className="absolute inset-0 border-2 border-orange-500 rounded-md opacity-0 group-hover:opacity-100 transition-opacity duration-300 animate-pulse"></div>
-
               <div className="flex items-center relative z-10">
                 <Calculator className="h-3 w-3 sm:h-4 sm:w-4 mr-1 sm:mr-2 text-orange-500" />
                 <span>Site + SEO Combo</span>
@@ -487,39 +653,48 @@ function App() {
           </div>
         </div>
 
-        {/* Promo Banner */}
+        {/* Promo Banner with Tooltip */}
         <div className="bg-gradient-to-r from-orange-600 via-orange-500 to-orange-600 rounded-md p-4 sm:p-6 mb-6 md:mb-8 text-center shadow-xl transform hover:scale-[1.01] transition-transform duration-300 relative overflow-hidden group">
           <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1557682250-33bd709cbe85?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80')] opacity-10 bg-cover bg-center"></div>
           <div className="absolute inset-0 bg-gradient-to-r from-orange-600/30 via-transparent to-orange-600/30 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-          <h2 className="text-sm sm:text-xl md:text-2xl font-bold relative z-10 flex flex-wrap items-center justify-center">
-            <span className="text-center">GET 15% OFF YOUR WEBSITE'S PRICE SIGNING UP FOR A DESIGN AND SEO COMBO</span>
+          <h2 className="text-sm sm:text-xl md:text-2xl font-bold relative z-10 flex items-center justify-center">
+            <span className="text-center">
+              GET 15% OFF YOUR WEBSITE'S PRICE SIGNING UP FOR A DESIGN AND SEO COMBO
+            </span>
+            <div className="relative inline-block ml-2 group">
+              <Info className="h-4 w-4 text-white" />
+              <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 hidden group-hover:block bg-gray-800 text-xs text-white p-2 rounded-md w-64 z-50">
+                When you sign up for our combo, you receive a 15% discount on the website design price – a great value for getting a professionally designed website bundled with robust SEO services.
+              </div>
+            </div>
           </h2>
         </div>
 
-        {/* SEO Understanding Toggle */}
-        <div className="flex items-center mb-10 md:mb-16 px-4">
-          <div className="flex items-center space-x-4">
-            <button
-              onClick={() => setShowBusinessFriendly(true)}
-              className={`px-4 py-2 rounded-md text-xs sm:text-sm transition-all duration-200 ${showBusinessFriendly
-                ? 'bg-gradient-to-r from-orange-600 to-orange-500 text-white font-medium shadow-md'
-                : 'border border-orange-500 hover:bg-orange-500/20'
-                }`}
-            >
-              I don't understand SEO
-            </button>
-
-            <button
-              onClick={() => setShowBusinessFriendly(false)}
-              className={`px-4 py-2 rounded-md text-xs sm:text-sm transition-all duration-200 ${!showBusinessFriendly
-                ? 'bg-gradient-to-r from-orange-600 to-orange-500 text-white font-medium shadow-md'
-                : 'border border-orange-500 hover:bg-orange-500/20'
-                }`}
-            >
-              I understand SEO
-            </button>
+        {/* SEO Understanding Toggle - Only for SEO page */}
+        {activeTab === 'seo' && (
+          <div className="flex items-center mb-10 md:mb-16 px-4">
+            <div className="flex items-center space-x-4">
+              <button
+                onClick={() => setShowBusinessFriendly(true)}
+                className={`px-4 py-2 rounded-md text-xs sm:text-sm transition-all duration-200 ${showBusinessFriendly
+                  ? 'bg-gradient-to-r from-orange-600 to-orange-500 text-white font-medium shadow-md'
+                  : 'border border-orange-500 hover:bg-orange-500/20'
+                  }`}
+              >
+                I don't understand SEO
+              </button>
+              <button
+                onClick={() => setShowBusinessFriendly(false)}
+                className={`px-4 py-2 rounded-md text-xs sm:text-sm transition-all duration-200 ${!showBusinessFriendly
+                  ? 'bg-gradient-to-r from-orange-600 to-orange-500 text-white font-medium shadow-md'
+                  : 'border border-orange-500 hover:bg-orange-500/20'
+                  }`}
+              >
+                I understand SEO
+              </button>
+            </div>
           </div>
-        </div>
+        )}
 
         {/* Feature explanation tooltip */}
         {hoveredFeature && (
@@ -537,18 +712,15 @@ function App() {
 
         {/* Calculator Modal */}
         {showCalculator && (
-          <div className="fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center z-50 p-4 overflow-y-auto">
+          <div className="fixed inset-0 bg-black/90 backdrop-blur-sm flex items-center justify-center z-50 p-4 overflow-y-auto">
             <div className="bg-transparent rounded-xl p-4 sm:p-8 w-full max-w-5xl relative shadow-2xl border border-gray-700 overflow-hidden max-h-[90vh] overflow-y-auto">
-              {/* Background pattern */}
               <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1614850523296-d8c1af93d400?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80')] opacity-5 bg-cover bg-center"></div>
-
               <button
                 onClick={() => setShowCalculator(false)}
                 className="absolute top-2 sm:top-4 right-2 sm:right-4 text-gray-400 hover:text-white bg-gray-800/50 hover:bg-gray-700/50 rounded-full p-1.5 transition-all duration-200 z-20"
               >
                 <X className="h-5 w-5" />
               </button>
-
               <div className="relative z-10">
                 <div className="flex flex-col sm:flex-row items-center justify-center mb-6 sm:mb-10">
                   <div className="bg-gradient-to-r from-orange-600 to-orange-500 p-3 rounded-xl shadow-lg mb-3 sm:mb-0 sm:mr-4">
@@ -558,10 +730,11 @@ function App() {
                     <h2 className="text-xl sm:text-3xl font-bold bg-gradient-to-r from-orange-500 via-orange-400 to-orange-500 bg-clip-text text-transparent">
                       Web Design + SEO Combo
                     </h2>
-                    <p className="text-gray-400 text-xs sm:text-sm mt-1">Calculate your perfect combo and save 15%</p>
+                    <p className="text-gray-400 text-xs sm:text-sm mt-1">
+                      Calculate your perfect combo and save 15%
+                    </p>
                   </div>
                 </div>
-
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
                   <div className="space-y-4 sm:space-y-6">
                     <div>
@@ -572,18 +745,19 @@ function App() {
                       <div className="relative">
                         <select
                           value={webDesignPlan}
-                          onChange={(e) => setWebDesignPlan(e.target.value)}
+                          onChange={e => setWebDesignPlan(e.target.value)}
                           className="block w-full bg-gray-800/70 border border-gray-600 rounded-md py-3 sm:py-3.5 px-3 sm:px-4 pr-8 text-white appearance-none focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all duration-200 text-sm"
                         >
                           <option value="">Select a Plan</option>
-                          {webDesignPackages.map((pkg) => (
-                            <option key={pkg.name} value={pkg.name}>{pkg.name} - ${pkg.price}</option>
+                          {webDesignPackages.map(pkg => (
+                            <option key={pkg.name} value={pkg.name}>
+                              {pkg.name} - ${pkg.price}
+                            </option>
                           ))}
                         </select>
                         <ChevronDown className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 pointer-events-none h-4 w-4 sm:h-5 sm:w-5" />
                       </div>
                     </div>
-
                     <div>
                       <label className="block text-sm font-medium text-gray-300 mb-2 flex items-center">
                         <Search className="h-4 w-4 mr-2 text-orange-500" />
@@ -592,18 +766,19 @@ function App() {
                       <div className="relative">
                         <select
                           value={seoPlan}
-                          onChange={(e) => setSeoPlan(e.target.value)}
+                          onChange={e => setSeoPlan(e.target.value)}
                           className="block w-full bg-gray-800/70 border border-gray-600 rounded-md py-3 sm:py-3.5 px-3 sm:px-4 pr-8 text-white appearance-none focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all duration-200 text-sm"
                         >
                           <option value="">Select a Plan</option>
-                          {seoPackages.map((pkg) => (
-                            <option key={pkg.name} value={pkg.name}>{pkg.name} - ${pkg.price}/month</option>
+                          {seoPackages.map(pkg => (
+                            <option key={pkg.name} value={pkg.name}>
+                              {pkg.name} - ${pkg.price}/month
+                            </option>
                           ))}
                         </select>
                         <ChevronDown className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 pointer-events-none h-4 w-4 sm:h-5 sm:w-5" />
                       </div>
                     </div>
-
                     <button
                       onClick={calculateTotal}
                       className="w-full bg-gradient-to-r from-orange-600 to-orange-500 hover:from-orange-500 hover:to-orange-400 text-white font-medium py-3 sm:py-3.5 px-4 rounded-md transition-all duration-300 shadow-md flex items-center justify-center text-sm"
@@ -611,33 +786,35 @@ function App() {
                       <Calculator className="h-4 w-4 sm:h-5 sm:w-5 mr-2" />
                       Calculate Total
                     </button>
-
-                    {showTotal && calculatedTotal !== null && discountedTotal !== null && webDesignPrice !== null && seoPrice !== null && discountAmount !== null && (
-                      <div className="mt-4 sm:mt-6 p-4 sm:p-6 bg-gray-800/50 rounded-md border border-gray-700 shadow-inner">
-                        <div className="flex justify-between items-center pt-3 border-t border-gray-700">
-                          <span className="text-base sm:text-lg font-bold text-white">Total Price:</span>
-                          <span className="text-base sm:text-lg font-bold text-white flex items-center">
-                            ${discountedTotal.toFixed(0)}
-                            <span className="text-xs text-orange-400 ml-1">x12</span>
-                          </span>
+                    {showTotal &&
+                      calculatedTotal !== null &&
+                      discountedTotal !== null &&
+                      webDesignPrice !== null &&
+                      seoPrice !== null &&
+                      discountAmount !== null && (
+                        <div className="mt-4 sm:mt-6 p-4 sm:p-6 bg-gray-800/50 rounded-md border border-gray-700 shadow-inner">
+                          <div className="flex justify-between items-center pt-3 border-t border-gray-700">
+                            <span className="text-base sm:text-lg font-bold text-white">
+                              Total Price:
+                            </span>
+                            <span className="text-base sm:text-lg font-bold text-white flex items-center">
+                              ${discountedTotal.toFixed(0)}
+                              <span className="text-xs text-orange-400 ml-1">x12</span>
+                            </span>
+                          </div>
+                          <button className="w-full mt-4 relative overflow-hidden group/btn bg-gradient-to-r from-green-700 to-blue-800 text-white font-medium py-3 px-4 rounded-md transition-all duration-300 shadow-md flex items-center justify-center text-sm">
+                            <div className="absolute inset-0 w-0 bg-gradient-to-r from-green-800 via-green-600 to-blue-900 group-hover/btn:w-full transition-[width] duration-700 ease-in-out wave-animation"></div>
+                            <span className="relative z-10">Proceed with This Combo</span>
+                            <Check className="h-4 w-4 sm:h-5 sm:w-5 ml-2 relative z-10" />
+                          </button>
                         </div>
-                        <button className="w-full mt-4 relative overflow-hidden group/btn bg-gradient-to-r from-green-700 to-blue-800 text-white font-medium py-3 px-4 rounded-md transition-all duration-300 shadow-md flex items-center justify-center text-sm">
-                          {/* Wave effect */}
-                          <div className="absolute inset-0 w-0 bg-gradient-to-r from-green-800 via-green-600 to-blue-900 group-hover/btn:w-full transition-[width] duration-700 ease-in-out wave-animation"></div>
-                          <span className="relative z-10">Proceed with This Combo</span>
-                          <Check className="h-4 w-4 sm:h-5 sm:w-5 ml-2 relative z-10" />
-                        </button>
-                      </div>
-                    )}
+                      )}
                   </div>
-
-                  {/* Combo Features Box or Animation */}
                   {showTotal && selectedWebDesignPackage && selectedSeoPackage ? (
                     <div className="bg-gradient-to-br from-gray-800/30 to-gray-900/30 rounded-xl border border-gray-700 p-4 sm:p-6 shadow-lg">
                       <h3 className="text-lg sm:text-xl font-bold mb-4 text-center bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">
                         Features of {selectedWebDesignPackage.name} and {selectedSeoPackage.name} Combo:
                       </h3>
-
                       <div className="space-y-4 max-h-[300px] sm:max-h-[400px] overflow-y-auto pr-2 custom-scrollbar">
                         {/* Web Design Features */}
                         <div className="mb-4">
@@ -651,25 +828,32 @@ function App() {
                                 key={i}
                                 className="flex items-start group/feature relative"
                                 onMouseEnter={() => {
-                                  setHoveredFeature(showBusinessFriendly ? businessFriendlyExplanations[feature] : featureExplanations[feature] || null);
+                                  setHoveredFeature(
+                                    showBusinessFriendly
+                                      ? businessFriendlyFeatures[feature]
+                                      : featureExplanations[feature] || null
+                                  );
                                 }}
                                 onMouseLeave={() => setHoveredFeature(null)}
                               >
-                                <div className="bg-green-500/10 p-1 rounded-full mr-2 sm:mr-3 flex-shrink-0 mt-0.5 group-hover/feature:bg-green-500/20 transition-colors duration-200">
-                                  <Check className="h-2 w-2 sm:h-3 sm:w-3 text-green-500" />
+                                <div className="bg-green-500/10 p-1 rounded-full mr-2 flex-shrink-0 mt-0.5 group-hover/feature:bg-green-500/20 transition-colors duration-200">
+                                  <Check className="h-3 w-3 text-green-500" />
                                 </div>
-                                <span className="text-xs text-gray-300 group-hover/feature:text-white transition-colors duration-200 cursor-help border-b border-dashed border-gray-700 group-hover/feature:border-gray-500">{feature}</span>
+                                <span className="text-xs text-gray-300 group-hover/feature:text-white transition-colors duration-200 cursor-help border-b border-dashed border-gray-700 group-hover/feature:border-gray-500">
+                                  {feature}
+                                </span>
                               </li>
                             ))}
                             <li className="flex items-start pt-1">
                               <div className="bg-orange-500/10 p-1 rounded-full mr-2 sm:mr-3 flex-shrink-0 mt-0.5">
                                 <Clock className="h-2 w-2 sm:h-3 sm:w-3 text-orange-500" />
                               </div>
-                              <span className="text-xs text-gray-300">{selectedWebDesignPackage.delivery}</span>
+                              <span className="text-xs text-gray-300">
+                                {selectedWebDesignPackage.delivery}
+                              </span>
                             </li>
                           </ul>
                         </div>
-
                         {/* SEO Features */}
                         <div>
                           <h4 className="text-xs sm:text-sm font-semibold text-orange-400 mb-2 flex items-center">
@@ -682,30 +866,35 @@ function App() {
                                 key={i}
                                 className="flex items-start group/feature relative"
                                 onMouseEnter={() => {
-                                  setHoveredFeature(showBusinessFriendly ? businessFriendlyExplanations[feature] : featureExplanations[feature] || null);
+                                  setHoveredFeature(
+                                    showBusinessFriendly
+                                      ? businessFriendlyFeatures[feature]
+                                      : featureExplanations[feature] || null
+                                  );
                                 }}
                                 onMouseLeave={() => setHoveredFeature(null)}
                               >
-                                <div className="bg-green-500/10 p-1 rounded-full mr-2 sm:mr-3 flex-shrink-0 mt-0.5 group-hover/feature:bg-green-500/20 transition-colors duration-200">
+                                <div className="bg-green-500/10 p-1 rounded-full mr-2 flex-shrink-0 mt-0.5 group-hover/feature:bg-green-500/20 transition-colors duration-200">
                                   <Check className="h-2 w-2 sm:h-3 sm:w-3 text-green-500" />
                                 </div>
-                                <span className="text-xs text-gray-300 group-hover/feature:text-white transition-colors duration-200 cursor-help border-b border-dashed border-gray-700 group-hover/feature:border-gray-500">{feature}</span>
+                                <span className="text-xs text-gray-300 group-hover/feature:text-white transition-colors duration-200 cursor-help border-b border-dashed border-gray-700 group-hover/feature:border-gray-500">
+                                  {feature}
+                                </span>
                               </li>
                             ))}
                           </ul>
                         </div>
-
-                        {/* Combo Benefits */}
+                        {/* Personalized Combo Benefits */}
                         <div className="pt-4 mt-4 border-t border-gray-700">
                           <h4 className="text-xs sm:text-sm font-semibold text-orange-400 mb-2 flex items-center">
                             <Sparkles className="h-3 w-3 sm:h-4 sm:w-4 mr-1 sm:mr-2" />
                             Combo Benefits:
                           </h4>
                           <p className="text-xs text-gray-300 leading-relaxed">
-                            This combo is perfect for businesses looking to establish a strong online presence quickly.
-                            You'll benefit from professional web design and targeted SEO to attract customers in your area.
-                            The 15% discount on your web design package provides excellent value while ensuring your
-                            business stands out online with a cohesive digital strategy.
+                            {getComboBenefitsDescription(
+                              selectedWebDesignPackage.name,
+                              selectedSeoPackage.name
+                            )}
                           </p>
                         </div>
                       </div>
@@ -713,11 +902,8 @@ function App() {
                   ) : (
                     <div className="bg-gradient-to-br from-gray-800/30 to-gray-900/30 rounded-xl border border-gray-700 p-4 sm:p-6 shadow-lg overflow-hidden relative">
                       <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1557682250-33bd709cbe85?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80')] opacity-5 bg-cover bg-center"></div>
-
-                      {/* Web Design + SEO Animation */}
                       <div className="relative h-full min-h-[300px] sm:min-h-[400px] flex flex-col items-center justify-center">
                         <div className="website-animation">
-                          {/* Desktop Frame */}
                           <div className="desktop-frame">
                             <div className="website-header">
                               <div className="website-logo"></div>
@@ -734,8 +920,6 @@ function App() {
                               <div className="website-row"></div>
                             </div>
                           </div>
-
-                          {/* SEO Elements */}
                           <div className="seo-elements">
                             <div className="search-icon">
                               <Search className="h-4 w-4 sm:h-6 sm:w-6 text-orange-500" />
@@ -747,13 +931,9 @@ function App() {
                             <div className="keyword-tag">SEO</div>
                             <div className="keyword-tag">Rankings</div>
                           </div>
-
-                          {/* Connecting Lines */}
                           <div className="connecting-line line1"></div>
                           <div className="connecting-line line2"></div>
                           <div className="connecting-line line3"></div>
-
-                          {/* Particles */}
                           <div className="particles">
                             <div className="particle p1"></div>
                             <div className="particle p2"></div>
@@ -763,14 +943,12 @@ function App() {
                             <div className="particle p6"></div>
                           </div>
                         </div>
-
                         <div className="text-center mt-6 sm:mt-8">
                           <h3 className="text-lg sm:text-xl font-bold mb-2 bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">
                             Select Your Plans to See Combo Features
                           </h3>
                           <p className="text-xs sm:text-sm text-gray-400 max-w-md mx-auto">
-                            Choose a Web Design package and an SEO package to see all the features included in your combo.
-                            Get 15% off your web design package when you bundle with SEO!
+                            Choose a Web Design package and an SEO package to see all the features included in your combo. Get 15% off your web design package when you bundle with SEO!
                           </p>
                         </div>
                       </div>
@@ -785,92 +963,16 @@ function App() {
         {/* Pricing Cards */}
         <div className="flex justify-center">
           <div
-            className={`grid grid-cols-1 sm:grid-cols-2 ${activeTab === "web-design"
-              ? "lg:grid-cols-3"
-              : "lg:grid-cols-3 xl:grid-cols-4"
+            className={`grid grid-cols-1 sm:grid-cols-2 ${activeTab === 'web-design' ? 'lg:grid-cols-3' : 'lg:grid-cols-3 xl:grid-cols-4'
               } gap-6 md:gap-8 max-w-8xl`}
           >
-            {activeTab === 'web-design' ? (
-              webDesignPackages.map((pkg, index) => (
+            {activeTab === 'web-design'
+              ? webDesignPackages.map((pkg, index) => (
                 <div
                   key={index}
-                  className={`group relative bg-transparent rounded-md overflow-hidden shadow-2xl border ${pkg.popular ? 'border-orange-500/30' : 'border-gray-700/50'} transform hover:scale-[1.02] transition-all duration-300 flex flex-col ${hoveredCard === index ? 'ring-2 ring-orange-500/50' : ''} shadow-[5px_5px_15px_rgba(0,0,0,0.3),-5px_-5px_15px_rgba(255,255,255,0.05)]`}
-                  onMouseEnter={() => setHoveredCard(index)}
-                  onMouseLeave={() => setHoveredCard(null)}
-                >
-                  {/* Popular badge */}
-                  {pkg.popular && (
-                    <div className="absolute top-0 right-0">
-                      <div className="bg-gradient-to-r from-orange-600 to-orange-500 text-white text-[10px] xs:text-xs font-bold px-2 sm:px-4 py-1 rounded-bl-md shadow-lg flex items-center">
-                        <Star className="h-2 w-2 sm:h-3 sm:w-3 mr-1" />
-                        MOST POPULAR </div>
-                    </div>
-                  )}
-
-                  {/* Background gradient */}
-                  <div className={`absolute inset-0 bg-gradient-to-b ${pkg.bgGradient} opacity-50`}></div>
-
-                  {/* Card content */}
-                  <div className="p-6 sm:p-8 relative z-10 flex flex-col flex-grow">
-                    <div className="flex items-center justify-between mb-4">
-                      <div className="bg-gray-800/50 p-3 rounded-lg shadow-inner">
-                        {pkg.icon}
-                      </div>
-                      <div className="text-right">
-                        <span className="block text-2xl sm:text-3xl font-bold text-white">${pkg.price}</span>
-                        <span className="text-xs text-gray-400">{pkg.period}</span>
-                      </div>
-                    </div>
-
-                    <h3 className="text-lg sm:text-xl font-bold mb-2 text-white">{pkg.name}</h3>
-                    <p className="text-xs sm:text-sm text-gray-300 mb-6">{pkg.description}</p>
-
-                    <div className="space-y-3 mb-6 flex-grow">
-                      {pkg.features.map((feature, i) => (
-                        <div
-                          key={i}
-                          className="flex items-start group/feature"
-                          onMouseEnter={() => {
-                            setHoveredFeature(showBusinessFriendly ? businessFriendlyExplanations[feature] : featureExplanations[feature] || null);
-                          }}
-                          onMouseLeave={() => setHoveredFeature(null)}
-                        >
-                          <div className="bg-green-500/10 p-1 rounded-full mr-2 flex-shrink-0 mt-0.5 group-hover/feature:bg-green-500/20 transition-colors duration-200">
-                            <Check className="h-3 w-3 text-green-500" />
-                          </div>
-                          <span className="text-xs text-gray-300 group-hover/feature:text-white transition-colors duration-200 cursor-help border-b border-dashed border-gray-700 group-hover/feature:border-gray-500">{feature}</span>
-                        </div>
-                      ))}
-
-                      {pkg.negativeFeatures && pkg.negativeFeatures.map((feature, i) => (
-                        <div key={i} className="flex items-start opacity-50">
-                          <div className="bg-red-500/10 p-1 rounded-full mr-2 flex-shrink-0 mt-0.5">
-                            <X className="h-3 w-3 text-red-500" />
-                          </div>
-                          <span className="text-xs text-gray-400 line-through">{feature}</span>
-                        </div>
-                      ))}
-
-                      <div className="flex items-start pt-2">
-                        <div className="bg-orange-500/10 p-1 rounded-full mr-2 flex-shrink-0 mt-0.5">
-                          <Clock className="h-3 w-3 text-orange-500" />
-                        </div>
-                        <span className="text-xs text-gray-300">{pkg.delivery}</span>
-                      </div>
-                    </div>
-
-                    <button className="w-full bg-gradient-to-r from-orange-600 to-orange-500 hover:from-orange-500 hover:to-orange-400 text-white font-medium py-3 px-4 rounded-md transition-all duration-300 shadow-md flex items-center justify-center text-sm mt-auto">
-                      Choose Plan
-                      <ArrowRight className="h-4 w-4 ml-2" />
-                    </button>
-                  </div>
-                </div>
-              ))
-            ) : (
-              seoPackages.map((pkg, index) => (
-                <div
-                  key={index}
-                  className={`group relative bg-transparent rounded-md overflow-hidden shadow-2xl border ${pkg.popular ? 'border-orange-500/30' : 'border-gray-700/50'} transform hover:scale-[1.02] transition-all duration-300 flex flex-col ${hoveredCard === index ? 'ring-2 ring-orange-500/50' : ''} shadow-[5px_5px_15px_rgba(0,0,0,0.3),-5px_-5px_15px_rgba(255,255,255,0.05)]`}
+                  className={`group relative bg-[#1a1a1a] rounded-md overflow-hidden shadow-2xl border ${pkg.popular ? 'border-orange-500/30' : 'border-gray-700/50'
+                    } transform hover:scale-[1.02] transition-all duration-300 flex flex-col ${hoveredCard === index ? 'ring-2 ring-orange-500/50' : ''
+                    } shadow-[5px_5px_15px_rgba(0,0,0,0.3),-5px_-5px_15px_rgba(255,255,255,0.05)] lg:max-h-[900px]`}
                   onMouseEnter={() => setHoveredCard(index)}
                   onMouseLeave={() => setHoveredCard(null)}
                 >
@@ -883,26 +985,120 @@ function App() {
                       </div>
                     </div>
                   )}
-
-                  {/* Background gradient */}
-                  <div className={`absolute inset-0 bg-gradient-to-b ${pkg.bgGradient} opacity-50`}></div>
-
-                  {/* Card content */}
                   <div className="p-6 sm:p-8 relative z-10 flex flex-col flex-grow">
-                    <div className="flex items-center justify-between mb-4">
+                    {/* New Example Website Button placed at top-left of each card */}
+                    <a
+                      href={webDesignExampleLinks[pkg.name] || '#'}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="mb-4 inline-block border border-orange-500 bg-transparent text-white text-xs py-1 px-3 rounded-md transition-colors duration-300 flex items-center"
+                    >
+                      View Example
+                      <Monitor className="ml-auto h-4 w-4 text-white" />
+                    </a>
+                    {/* Price + Title */}
+                    <div className="mb-4 flex items-center justify-between">
                       <div className="bg-gray-800/50 p-3 rounded-lg shadow-inner">
                         {pkg.icon}
                       </div>
                       <div className="text-right">
-                        <span className="block text-2xl sm:text-3xl font-bold text-white">${pkg.price}</span>
-                        <span className="text-xs text-gray-400">{pkg.period}</span>
+                        <span className="block text-3xl sm:text-4xl font-bold text-white">
+                          ${pkg.price}
+                        </span>
+                        <span className="text-sm text-gray-400">{pkg.period}</span>
                       </div>
                     </div>
-
-                    <h3 className="text-lg sm:text-xl font-bold mb-2 text-white">{pkg.name}</h3>
-                    <p className="text-xs sm:text-sm text-gray-300 mb-6">{pkg.description}</p>
-
-                    <div className="space-y-3 mb-6 flex-grow">
+                    <h3 className="text-lg sm:text-xl font-bold mb-2 text-orange-500">
+                      {pkg.name}
+                    </h3>
+                    <p className="text-xs sm:text-sm text-gray-300">{pkg.description}</p>
+                    {/* Thin line above button */}
+                    <div className="border-t border-gray-700 my-4"></div>
+                    {/* Button ABOVE features */}
+                    <button className="w-full bg-orange-600 hover:bg-orange-500 text-white font-bold uppercase py-3 px-4 rounded-md transition-all duration-300 shadow-[3px_3px_10px_rgba(0,0,0,0.2),-3px_-3px_10px_rgba(255,255,255,0.03)] group-hover:shadow-orange-500/20 flex items-center justify-center relative overflow-hidden group/btn text-xs sm:text-sm tracking-wide">
+                      <div className="absolute inset-0 w-0 bg-gradient-to-r from-green-800 via-green-600 to-blue-900 group-hover/btn:w-full transition-[width] duration-700 ease-in-out wave-animation"></div>
+                      <span className="relative z-10">Choose Plan</span>
+                      <ArrowRight className="h-4 w-4 ml-2 relative z-10" />
+                    </button>
+                    {/* Thin line below button */}
+                    <div className="border-t border-gray-700 my-4"></div>
+                    {/* Features - only the features section is scrollable */}
+                    <div className="space-y-3 mb-6 flex-grow overflow-y-auto max-h-[300px] custom-scrollbar pr-2">
+                      {(showBusinessFriendly
+                        ? businessFriendlyFeatures[pkg.name]
+                        : pkg.features
+                      )?.map((feature: string, i: number) => (
+                        <div
+                          key={i}
+                          className="flex items-start group/feature"
+                          onMouseEnter={() => {
+                            setHoveredFeature(
+                              showBusinessFriendly
+                                ? businessFriendlyFeatures[feature]
+                                : featureExplanations[feature] || null
+                            );
+                          }}
+                          onMouseLeave={() => setHoveredFeature(null)}
+                        >
+                          <div className="bg-green-500/10 p-1 rounded-full mr-2 flex-shrink-0 mt-0.5 group-hover/feature:bg-green-500/20 transition-colors duration-200">
+                            <Check className="h-3 w-3 text-green-500" />
+                          </div>
+                          <span className="text-xs text-gray-300 group-hover/feature:text-white transition-colors duration-200 cursor-help border-b border-dashed border-gray-700 group-hover/feature:border-gray-500">
+                            {feature}
+                          </span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              ))
+              : seoPackages.map((pkg, index) => (
+                <div
+                  key={index}
+                  className={`group relative bg-[#1a1a1a] rounded-md overflow-hidden shadow-2xl border ${pkg.popular ? 'border-orange-500/30' : 'border-gray-700/50'
+                    } transform hover:scale-[1.02] transition-all duration-300 flex flex-col ${hoveredCard === index ? 'ring-2 ring-orange-500/50' : ''
+                    } shadow-[5px_5px_15px_rgba(0,0,0,0.3),-5px_-5px_15px_rgba(255,255,255,0.05)]`}
+                  onMouseEnter={() => setHoveredCard(index)}
+                  onMouseLeave={() => setHoveredCard(null)}
+                >
+                  {/* Popular badge */}
+                  {pkg.popular && (
+                    <div className="absolute top-0 right-0">
+                      <div className="bg-gradient-to-r from-orange-600 to-orange-500 text-white text-[10px] xs:text-xs font-bold px-2 sm:px-4 py-1 rounded-bl-md shadow-lg flex items-center">
+                        <Star className="h-2 w-2 sm:h-3 sm:w-3 mr-1" />
+                        MOST POPULAR
+                      </div>
+                    </div>
+                  )}
+                  <div className="p-6 sm:p-8 relative z-10 flex flex-col flex-grow">
+                    {/* Price + Title */}
+                    <div className="mb-4 flex items-center justify-between">
+                      <div className="bg-gray-800/50 p-3 rounded-lg shadow-inner">
+                        {pkg.icon}
+                      </div>
+                      <div className="text-right">
+                        <span className="block text-3xl sm:text-4xl font-bold text-white">
+                          ${pkg.price}
+                        </span>
+                        <span className="text-sm text-gray-400">{pkg.period}</span>
+                      </div>
+                    </div>
+                    <h3 className="text-lg sm:text-xl font-bold mb-2 text-orange-500">
+                      {pkg.name}
+                    </h3>
+                    <p className="text-xs sm:text-sm text-gray-300">{pkg.description}</p>
+                    {/* Thin line above button */}
+                    <div className="border-t border-gray-700 my-4"></div>
+                    {/* Button ABOVE features */}
+                    <button className="w-full bg-orange-600 hover:bg-orange-500 text-white font-bold uppercase py-3 px-4 rounded-md transition-all duration-300 shadow-[3px_3px_10px_rgba(0,0,0,0.2),-3px_-3px_10px_rgba(255,255,255,0.03)] group-hover:shadow-orange-500/20 flex items-center justify-center relative overflow-hidden group/btn text-xs sm:text-sm tracking-wide">
+                      <div className="absolute inset-0 w-0 bg-gradient-to-r from-green-800 via-green-600 to-blue-900 group-hover/btn:w-full transition-[width] duration-700 ease-in-out wave-animation"></div>
+                      <span className="relative z-10">Choose Plan</span>
+                      <ArrowRight className="h-4 w-4 ml-2 relative z-10" />
+                    </button>
+                    {/* Thin line below button */}
+                    <div className="border-t border-gray-700 my-4"></div>
+                    {/* Features - only the features section is scrollable */}
+                    <div className="space-y-3 mb-6 flex-grow overflow-y-auto max-h-[300px] custom-scrollbar pr-2">
                       {(showBusinessFriendly ? businessFriendlyFeatures[pkg.name] : pkg.features)?.map((feature, i) => (
                         <div
                           key={i}
@@ -925,18 +1121,26 @@ function App() {
                         </div>
                       ))}
                     </div>
-                    <button className="w-full bg-orange-600 text-white font-medium py-3 sm:py-4 px-4 sm:px-6 rounded-md transition-all duration-300 shadow-[3px_3px_10px_rgba(0,0,0,0.2),-3px_-3px_10px_rgba(255,255,255,0.03)] group-hover:shadow-orange-500/20 flex items-center justify-center relative overflow-hidden group/btn text-xs sm:text-sm">
-                      <div className="absolute inset-0 w-0 bg-gradient-to-r from-green-800 via-green-600 to-blue-900 group-hover/btn:w-full transition-[width] duration-700 ease-in-out wave-animation"></div>
-                      <span className="relative z-10">Choose Plan</span>
-                      <ArrowRight className="h-4 w-4 ml-2 relative z-10" />
-                    </button>
                   </div>
                 </div>
-              ))
-            )}
+              ))}
           </div>
         </div>
       </div>
+
+      {/* Global custom scrollbar styling for elements with .custom-scrollbar */}
+      <style jsx global>{`
+        .custom-scrollbar::-webkit-scrollbar {
+          width: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+          background: transparent;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+          background-color: rgba(255, 255, 255, 0.3);
+          border-radius: 9999px;
+        }
+      `}</style>
     </div>
   );
 }
