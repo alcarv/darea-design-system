@@ -613,14 +613,25 @@ function App() {
               GET 15% OFF YOUR WEBSITE'S PRICE SIGNING UP FOR A DESIGN AND SEO COMBO
             </h2>
             <span
-              className="flex items-center space-x-2 px-8 py-4 rounded-[5px] bg-[#101111] bg-opacity-60 backdrop-blur-lg text-white text-base font-medium tracking-wider shadow-xl border-2 transition-transform duration-300 hover:scale-105"
+              className="inline-flex transition-transform duration-300 hover:scale-105"
               style={{
-                fontFamily: 'Tahoma',
-                borderImage: "linear-gradient(to right, #065f46, #16a34a, #1e3a8a) 1"
+                display: 'inline-flex',
+                borderRadius: '5px',
+                background: 'linear-gradient(to right, #065f46, #16a34a, #1e3a8a)',
+                padding: '2px', // espessura da borda gradiente
               }}
             >
-              <Clock className="h-5 w-5 text-[#ee600c]" />
-              <span>Offer expires in: {timeLeft}</span>
+              <span
+                className="flex items-center space-x-2 px-8 py-4 text-white text-base font-medium tracking-wider shadow-xl"
+                style={{
+                  borderRadius: '5px',
+                  backgroundColor: '#101111',
+                  backdropFilter: 'blur(4px)',
+                }}
+              >
+                <Clock className="h-5 w-5 text-[#ee600c]" />
+                <span>Offer expires in: {timeLeft}</span>
+              </span>
             </span>
           </div>
 
@@ -782,7 +793,7 @@ function App() {
                             className="w-full mt-4 relative overflow-hidden group/btn bg-gradient-to-r from-green-700 to-blue-800 text-white font-medium py-3 px-4 rounded-md transition-all duration-300 shadow-md flex items-center justify-center text-sm"
                           >
                             <div className="absolute inset-0 w-0 bg-gradient-to-r from-green-800 via-green-600 to-blue-900 group-hover/btn:w-full transition-[width] duration-700 ease-in-out wave-animation"></div>
-                            <span className="relative z-10">Proceed with This Combo</span>
+                            <span className="relative z-10">CLAIM YOUR COMBO</span>
                             <Check className="h-4 w-4 sm:h-5 sm:w-5 ml-2 relative z-10" />
                           </a>
                         </div>
@@ -958,7 +969,7 @@ function App() {
                       rel="noopener noreferrer"
                       className="mb-4 inline-block border border-orange-500 bg-transparent text-white text-xs py-1 px-3 rounded-md transition-colors duration-300 flex items-center"
                     >
-                      See Example of { pkg.name }
+                      See Example of {pkg.name}
                       <Monitor className="ml-auto h-4 w-4 text-white" />
                     </a>
                     <div className="mb-4 flex items-center justify-between">
@@ -976,6 +987,10 @@ function App() {
                       {pkg.name}
                     </h3>
                     <p className="text-xs sm:text-sm text-gray-300">{pkg.description}</p>
+                    <p className="mt-4 text-xs sm:text-sm text-gray-300">
+                      <span className="text-orange-500 mr-2">•</span>
+                      Packages Do Not Include Domain and Hosting Fees.
+                    </p>
                     <div className="border-t border-gray-700 my-4"></div>
                     <a
                       href={webDesignLinks[pkg.name]}
@@ -984,7 +999,7 @@ function App() {
                       className="w-full bg-orange-600 hover:bg-orange-500 text-white font-bold uppercase py-3 px-4 rounded-md transition-all duration-300 shadow-[3px_3px_10px_rgba(0,0,0,0.2),-3px_-3px_10px_rgba(255,255,255,0.03)] group-hover:shadow-orange-500/20 flex items-center justify-center relative overflow-hidden group/btn text-xs sm:text-sm tracking-wide"
                     >
                       <div className="absolute inset-0 w-0 bg-gradient-to-r from-green-800 via-green-600 to-blue-900 group-hover/btn:w-full transition-[width] duration-700 ease-in-out wave-animation"></div>
-                      <span className="relative z-10">Choose Plan</span>
+                      <span className="relative z-10" style={{ fontFamily: 'Thoma Medium' }}>CLAIM PLAN</span>
                       <ArrowRight className="h-4 w-4 ml-2 relative z-10" />
                     </a>
                     <div className="border-t border-gray-700 my-4"></div>
@@ -1042,6 +1057,10 @@ function App() {
                       {pkg.name}
                     </h3>
                     <p className="text-xs sm:text-sm text-gray-300">{pkg.description}</p>
+                    <p className="mt-4 text-xs sm:text-sm text-gray-300">
+                      <span className="text-orange-500 mr-2">•</span>
+                      Valid until canceled
+                    </p>
                     <div className="border-t border-gray-700 my-4"></div>
                     <a
                       href={seoLinks[pkg.name]}
@@ -1050,7 +1069,7 @@ function App() {
                       className="w-full bg-orange-600 hover:bg-orange-500 text-white font-bold uppercase py-3 px-4 rounded-md transition-all duration-300 shadow-[3px_3px_10px_rgba(0,0,0,0.2),-3px_-3px_10px_rgba(255,255,255,0.03)] group-hover:shadow-orange-500/20 flex items-center justify-center relative overflow-hidden group/btn text-xs sm:text-sm tracking-wide"
                     >
                       <div className="absolute inset-0 w-0 bg-gradient-to-r from-green-800 via-green-600 to-blue-900 group-hover/btn:w-full transition-[width] duration-700 ease-in-out wave-animation"></div>
-                      <span className="relative z-10">Choose Plan</span>
+                      <span className="relative z-10" style={{ fontFamily: 'Thoma Medium' }}>CLAIM PLAN</span>
                       <ArrowRight className="h-4 w-4 ml-2 relative z-10" />
                     </a>
                     <div className="border-t border-gray-700 my-4"></div>
