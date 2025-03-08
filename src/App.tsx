@@ -971,7 +971,7 @@ function App() {
                       rel="noopener noreferrer"
                       className="mb-4 inline-block border border-orange-500 bg-transparent text-white text-xs py-1 px-3 rounded-md transition-colors duration-300 flex items-center"
                     >
-                      See Example of {pkg.name} Site
+                      See Example of a {pkg.name} Site
                       <Monitor className="ml-auto h-4 w-4 text-white" />
                     </a>
                     <div className="mb-4 flex items-center justify-between">
@@ -991,7 +991,7 @@ function App() {
                     <p className="text-xs sm:text-sm text-gray-300">{pkg.description}</p>
                     <p className="mt-4 text-xs sm:text-sm text-gray-300">
                       <span className="text-orange-500 mr-2">•</span>
-                      Packages Do Not Include Domain and Hosting Fees.
+                      Packages do not include domain and hosting fees.
                     </p>
                     <div className="border-t border-gray-700 my-4"></div>
                     <a
