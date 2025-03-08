@@ -636,8 +636,10 @@ function App() {
           </div>
 
           {comboTooltipVisible && (
-            <div className="absolute left-1/2 transform -translate-x-1/2 top-full mt-2 p-3 bg-gray-900 text-white text-sm rounded shadow-lg z-50"
-              style={{ whiteSpace: 'normal' }}>
+            <div
+              className="absolute left-1/2 transform -translate-x-1/2 bottom-full mb-2 p-3 bg-gray-900 text-white text-sm rounded shadow-lg z-50"
+              style={{ whiteSpace: 'normal' }}
+            >
               By choosing our combo, you'll save 15% on a custom website design while receiving expert SEO optimization to boost your online visibility and attract more customers.
             </div>
           )}
@@ -996,12 +998,13 @@ function App() {
                       href={webDesignLinks[pkg.name]}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="w-full bg-orange-600 hover:bg-orange-500 text-white font-bold uppercase py-3 px-4 rounded-md transition-all duration-300 shadow-[3px_3px_10px_rgba(0,0,0,0.2),-3px_-3px_10px_rgba(255,255,255,0.03)] group-hover:shadow-orange-500/20 flex items-center justify-center relative overflow-hidden group/btn text-xs sm:text-sm tracking-wide"
+                      className="w-full bg-orange-600 hover:bg-orange-500 text-white font-medium py-3 px-4 rounded-md transition-all duration-300 shadow-[3px_3px_10px_rgba(0,0,0,0.2),-3px_-3px_10px_rgba(255,255,255,0.03)] group-hover:shadow-orange-500/20 flex items-center justify-center relative overflow-hidden group/btn text-sm tracking-wide"
                     >
                       <div className="absolute inset-0 w-0 bg-gradient-to-r from-green-800 via-green-600 to-blue-900 group-hover/btn:w-full transition-[width] duration-700 ease-in-out wave-animation"></div>
-                      <span className="relative z-10" style={{ fontFamily: 'Thoma Medium' }}>CLAIM PLAN</span>
+                      <span className="relative z-10">CLAIM YOUR PLAN</span>
                       <ArrowRight className="h-4 w-4 ml-2 relative z-10" />
                     </a>
+
                     <div className="border-t border-gray-700 my-4"></div>
                     {/* Features - only the features section is scrollable */}
                     <div className="space-y-3 mb-6 flex-grow overflow-y-auto max-h-[300px] custom-scrollbar pr-2">
@@ -1066,12 +1069,13 @@ function App() {
                       href={seoLinks[pkg.name]}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="w-full bg-orange-600 hover:bg-orange-500 text-white font-bold uppercase py-3 px-4 rounded-md transition-all duration-300 shadow-[3px_3px_10px_rgba(0,0,0,0.2),-3px_-3px_10px_rgba(255,255,255,0.03)] group-hover:shadow-orange-500/20 flex items-center justify-center relative overflow-hidden group/btn text-xs sm:text-sm tracking-wide"
+                      className="w-full bg-orange-600 hover:bg-orange-500 text-white font-medium py-3 px-4 rounded-md transition-all duration-300 shadow-[3px_3px_10px_rgba(0,0,0,0.2),-3px_-3px_10px_rgba(255,255,255,0.03)] group-hover:shadow-orange-500/20 flex items-center justify-center relative overflow-hidden group/btn text-sm tracking-wide"
                     >
                       <div className="absolute inset-0 w-0 bg-gradient-to-r from-green-800 via-green-600 to-blue-900 group-hover/btn:w-full transition-[width] duration-700 ease-in-out wave-animation"></div>
-                      <span className="relative z-10" style={{ fontFamily: 'Thoma Medium' }}>CLAIM PLAN</span>
+                      <span className="relative z-10">CLAIM YOUR PLAN</span>
                       <ArrowRight className="h-4 w-4 ml-2 relative z-10" />
                     </a>
+
                     <div className="border-t border-gray-700 my-4"></div>
                     <div className="space-y-3 mb-6 flex-grow overflow-y-auto max-h-[300px] custom-scrollbar pr-2">
                       {(showBusinessFriendly ? businessFriendlyFeatures[pkg.name] : pkg.features)?.map((feature, i) => (
